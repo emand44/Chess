@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skakbræt</title>
+    <script>
+        function loadBoard() {
+            fetch('/get_board')
+                .then(response => response.json())
+                .then(board => {
+                    const boardContainer = document.getElementById('board');
+                    boardContainer.innerHTML = ''; // Clear the board
+                    board.forEach(row => {
+                        const rowDiv = document.createElement('div');
+                        row.forEach(piece => {
+                            const cell = document.createElement('span');
+                            cell.textContent = piece ? piece.navn[0] : ' ';
+                            rowDiv.appendChild(cell);
+                        });
+                        boardContainer.appendChild(rowDiv);
+                    });
+                });
+        }
+    </script>
+</head>
+<body onload="loadBoard()">
+    <div id="board"></div>
+</body>
+</html>
